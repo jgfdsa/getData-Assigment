@@ -54,7 +54,7 @@ setwd("D:/COURSES/Coursera/03_Getting and Cleaning Data/Assigment/UCI HAR Datase
         names(Subject) <- "subject"
         TidyData <- cbind(Subject, Label, Data)
 ### Write out the 1st dataset
-        write.table(TidyData, "TidyData.txt") 
+        # write.table(TidyData, "TidyData.txt") 
 
 ## Step5. Creates a second, independent tidy data set with the average of each 
 ## variable for each activity and each subject. 
