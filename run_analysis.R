@@ -34,9 +34,9 @@ setwd("D:/COURSES/Coursera/03_Getting and Cleaning Data/Assigment/UCI HAR Datase
         Data <- Data[, Ind_mean.std]
 ### Text formating
         names(Data) <- gsub("\\(\\)", "", features[Ind_mean.std, 2])
-        names(Data) <- gsub("-", "", names(joinData)) 
+        names(Data) <- gsub("-", "", names(Data)) 
         names(Data) <- gsub("mean", "Mean", names(Data))
-        names(Data) <- gsub("std", "Std", names(joinData))
+        names(Data) <- gsub("std", "Std", names(Data))
 
 ## Step3. Uses descriptive activity names to name the activities in the data set
 
@@ -60,11 +60,11 @@ setwd("D:/COURSES/Coursera/03_Getting and Cleaning Data/Assigment/UCI HAR Datase
 ## variable for each activity and each subject. 
 
 ### Size of the original data
-        Length_subject <- length(table(Subject))
-        Dim_activity <- dim(activity)[1]
-        Dim_column <- dim(TidyData)[2]
+        LengthSubject <- length(table(Subject))
+        DimActivity <- dim(activity)[1]
+        DimColumn <- dim(TidyData)[2]
 ### Pre-alocating the matrix for new data-set, and row number ii
-        TidyData2 <- matrix(NA, nrow=Length_subject*Dim_activity, ncol=Dim_column) 
+        TidyData2 <- matrix(NA, nrow=LengthSubject*DimActivity, ncol=DimColumn) 
         TidyData2 <- as.data.frame(TidyData2)
         colnames(TidyData2) <- colnames(TidyData)
         ii <- 1
@@ -75,11 +75,11 @@ for(i in 1:Length_subject) {
         TidyData2[ii, 2] <- activity[j, 2]
         ind1 <- i == TidyData$subject
         ind2 <- activity[j, 2] == TidyData$activity
-        TidyData2[row, 3:Dim_column] <- colMeans(TidyData[ind1&ind2, 3:Dim_column])
+        TidyData2[ii, 3:DimColumn] <- colMeans(TidyData[ind1&ind2, 3:DimColumn])
         ii <- ii + 1
         }
 }
 
 ### Saving new data-set with the average of each variable for each activity and 
 ### each subject.  
-write.table(TidyData2, "TidyData2_means.txt")
+write.table(TidyData2, "TidyData2_means.txt",row.name=FALSE)
